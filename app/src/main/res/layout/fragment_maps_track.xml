@@ -16,7 +16,7 @@
         android:layout_height="@dimen/dp_60"
         android:layout_margin="@dimen/app_marging_defult">
         <TextView
-            android:id="@+id/timer"
+            android:id="@+id/tvTimer"
             android:layout_toStartOf="@+id/runControls"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
