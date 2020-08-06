@@ -100,7 +100,8 @@ class TrackingService : LifecycleService() {
         pathPoints.postValue(this)
     } ?: pathPoints.postValue(mutableListOf(mutableListOf()))
 
-    val locationCallBack = object : LocationCallback() {
+
+    val locationCallback = object : LocationCallback() {
         override fun onLocationResult(result: LocationResult?) {
             super.onLocationResult(result)
             if (isTracking.value!!) {
@@ -124,11 +125,11 @@ class TrackingService : LifecycleService() {
             }
             fusedLocationProviderClient.requestLocationUpdates(
                 request,
-                locationCallBack,
+                locationCallback,
                 Looper.getMainLooper()
             )
         } else {  //to remove call backs
-            fusedLocationProviderClient.removeLocationUpdates(locationCallBack)
+            fusedLocationProviderClient.removeLocationUpdates(locationCallback)
         }
     }
 
