@@ -1,15 +1,20 @@
 package com.fittunner.view.home
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.fittunner.MainActivity
 import com.fittunner.R
+import dagger.hilt.android.AndroidEntryPoint
 
-class HomeActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class HomeActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,5 +31,13 @@ class HomeActivity : AppCompatActivity() {
         )
        // setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    override fun onClick(view: View?) {
+        when (view?.id){
+            R.id.newRun->{
+                startActivity(Intent(this,MainActivity::class.java))
+            }
+        }
     }
 }

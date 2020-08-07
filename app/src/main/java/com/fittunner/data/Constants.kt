@@ -1,6 +1,9 @@
 package com.fittunner.data
 
 object Constants {
+
+    const val APP_DATABASE_NAME="FitTunnerDataBase"
+
     const val ACTION_TRACK_START_OR_RESUME="ACTION_TRACK_START_OR_RESUME"
     const val ACTION_TRACK_PAUSE="ACTION_TRACK_PAUSE"
     const val ACTION_TRACK_STOP="ACTION_TRACK_STOP"

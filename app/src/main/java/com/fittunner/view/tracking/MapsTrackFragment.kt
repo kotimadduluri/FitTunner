@@ -4,9 +4,11 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.fittunner.R
 import com.fittunner.data.Constants
+import com.fittunner.room.RunTrack
 import com.fittunner.service.Polyline
 import com.fittunner.service.TrackingService
 import com.fittunner.util.TimeUtility
@@ -18,16 +20,19 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_maps_track.*
+import java.lang.Exception
 import java.util.*
+import kotlin.math.floor
 import kotlin.math.round
 
+@AndroidEntryPoint
 class MapsTrackFragment : Fragment(R.layout.fragment_maps_track), View.OnClickListener {
 
     lateinit var map: GoogleMap
-
-    private var currentTimeINMiils = 0L
-
+    private var currentTimeInMills = 0L
+    private val viewmodel:MapsTrackViewModel by viewModels()
     private val callback = OnMapReadyCallback { googleMap ->
         map = googleMap
         addAllPolyLines()
@@ -41,7 +46,6 @@ class MapsTrackFragment : Fragment(R.layout.fragment_maps_track), View.OnClickLi
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
-
         with(view){
             start.setOnClickListener(this@MapsTrackFragment)
             stop.setOnClickListener(this@MapsTrackFragment)
@@ -62,8 +66,8 @@ class MapsTrackFragment : Fragment(R.layout.fragment_maps_track), View.OnClickLi
         })
 
         TrackingService.timeRunInMills.observe(viewLifecycleOwner, Observer {
-            currentTimeINMiils=it
-            val formatedTime=TimeUtility.getFormattedStopWatchTime(currentTimeINMiils,true)
+            currentTimeInMills=it
+            val formatedTime=TimeUtility.getFormattedStopWatchTime(currentTimeInMills,true)
             tvTimer.text=formatedTime
         })
     }
@@ -102,7 +106,7 @@ class MapsTrackFragment : Fragment(R.layout.fragment_maps_track), View.OnClickLi
                     .width(8f)
                     .addAll(polyline)
 
-                map?.addPolyline(polylineOptions)
+                map.addPolyline(polylineOptions)
             }
         }
     }
@@ -118,7 +122,7 @@ class MapsTrackFragment : Fragment(R.layout.fragment_maps_track), View.OnClickLi
                     .add(prelastLatLng)
                     .add(lastLatLng)
 
-                map?.addPolyline(polylineOptions)
+                map.addPolyline(polylineOptions)
 
             }
         }
@@ -145,7 +149,7 @@ class MapsTrackFragment : Fragment(R.layout.fragment_maps_track), View.OnClickLi
                 )
             }
             R.id.stop->{
-                if(currentTimeINMiils>0L){
+                if(currentTimeInMills>0L){
                     zoomToWholeTrack()
                     endAndSaveRun()
                 }
@@ -159,7 +163,6 @@ class MapsTrackFragment : Fragment(R.layout.fragment_maps_track), View.OnClickLi
             .setMessage("Are you sure to stop current run and delete all it`s data?")
             .setIcon(R.drawable.ic_run)
             .setPositiveButton("Yes"){dialogueInterface,_ ->
-                dialogueInterface.dismiss()
                 start.visibility=View.VISIBLE
                 stop.visibility=View.GONE
                 pause.visibility = View.GONE
@@ -167,6 +170,8 @@ class MapsTrackFragment : Fragment(R.layout.fragment_maps_track), View.OnClickLi
                     requireContext(),
                     Constants.ACTION_TRACK_STOP
                 )
+
+                dialogueInterface.dismiss()
             }
             .setNegativeButton("No") { dialogueInterface, _ ->
                 dialogueInterface.dismiss()
@@ -187,28 +192,39 @@ class MapsTrackFragment : Fragment(R.layout.fragment_maps_track), View.OnClickLi
         map?.moveCamera(
             CameraUpdateFactory.newLatLngBounds(
                 bounds.build(),
-                view!!.width,
-                view!!.height,
-                (view!!.height * 0.05f).toInt()
+                requireView().width,
+                requireView().height,
+                (requireView().height * 0.05f).toInt()
             )
         )
     }
 
     val weight=60F
     private fun endAndSaveRun(){
-        map.snapshot { bmp->
+        try{
+            map.snapshot { bmp->
 
-            var distenceInMeters=0
-            for(polyline in pathPoints){
-                distenceInMeters+=TrackingUtility.calculatePolylineLength(polyline).toInt()
+                var distenceInMeters=0
+                for(polyline in pathPoints){
+                    distenceInMeters+=TrackingUtility.calculatePolylineLength(polyline).toInt()
+                }
+
+                val distenceInKiloMeters=distenceInMeters/1000f
+                val currentTimeInHours= currentTimeInMills/3.6e+6
+
+                val avgSpeed= (round((distenceInKiloMeters /currentTimeInHours)*10) /10f).toFloat()
+                val dateTimestamp=Calendar.getInstance().timeInMillis
+                val caloriesBurned = (distenceInKiloMeters*weight).toInt()
+
+                //save here
+                val run= RunTrack(
+                    bmp,avgSpeed,distenceInMeters,caloriesBurned,currentTimeInMills,dateTimestamp
+                )
+                viewmodel.insertRun(run)
+                showCancelDialogue()
             }
-            val avgSpeed= round((distenceInMeters/1000f) /(currentTimeINMiils/1000/60/60)*10)/10f
-            val dateTimestamp=Calendar.getInstance().timeInMillis
-            val caloriesBurned = ((distenceInMeters/1000f)*weight).toInt()
-
-            //save here
-
-            showCancelDialogue()
+        }catch (e:Exception){
+            e.printStackTrace()
         }
     }
 }
