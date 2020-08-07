@@ -1,56 +1,41 @@
 package com.fittunner.view.tracking
 
 import android.graphics.Color
-import androidx.fragment.app.Fragment
-
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.lifecycle.MutableLiveData
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.fittunner.R
 import com.fittunner.data.Constants
 import com.fittunner.service.Polyline
-import com.fittunner.service.Polylines
 import com.fittunner.service.TrackingService
 import com.fittunner.util.TimeUtility
-
+import com.fittunner.util.TrackingUtility
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.fragment_maps_track.*
-import java.lang.Exception
+import java.util.*
+import kotlin.math.round
 
-class MapsTrackFragment : Fragment(),View.OnClickListener {
+class MapsTrackFragment : Fragment(R.layout.fragment_maps_track), View.OnClickListener {
 
-    lateinit var map:GoogleMap
+    lateinit var map: GoogleMap
 
     private var currentTimeINMiils = 0L
 
     private val callback = OnMapReadyCallback { googleMap ->
-        map=googleMap
+        map = googleMap
         addAllPolyLines()
-        /*val sydney = LatLng(27.2038, 77.5011)
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in MY Room"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))*/
     }
 
     private var isTracking = false
     private var pathPoints= mutableListOf<Polyline>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_maps_track, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -81,18 +66,6 @@ class MapsTrackFragment : Fragment(),View.OnClickListener {
             val formatedTime=TimeUtility.getFormattedStopWatchTime(currentTimeINMiils,true)
             tvTimer.text=formatedTime
         })
-    }
-
-    private fun toggleRun(){
-        if(isTracking){
-            TrackingService.sendCommand(requireContext(),
-                Constants.ACTION_TRACK_PAUSE
-            )
-        }else{
-            TrackingService.sendCommand(requireContext(),
-                Constants.ACTION_TRACK_START_OR_RESUME
-            )
-        }
     }
 
     private fun updateTracking(isTracking:Boolean){
@@ -173,7 +146,8 @@ class MapsTrackFragment : Fragment(),View.OnClickListener {
             }
             R.id.stop->{
                 if(currentTimeINMiils>0L){
-                    showCancelDialogue()
+                    zoomToWholeTrack()
+                    endAndSaveRun()
                 }
             }
         }
@@ -188,14 +162,53 @@ class MapsTrackFragment : Fragment(),View.OnClickListener {
                 dialogueInterface.dismiss()
                 start.visibility=View.VISIBLE
                 stop.visibility=View.GONE
-                pause.visibility=View.GONE
-                TrackingService.sendCommand(requireContext(),
+                pause.visibility = View.GONE
+                TrackingService.sendCommand(
+                    requireContext(),
                     Constants.ACTION_TRACK_STOP
                 )
             }
-            .setNegativeButton("No"){dialogueInterface,_ ->
+            .setNegativeButton("No") { dialogueInterface, _ ->
                 dialogueInterface.dismiss()
             }
         dialogue.show()
+    }
+
+    //saving track
+
+    private fun zoomToWholeTrack() {
+        val bounds = LatLngBounds.Builder()
+        for (polyline in pathPoints) {
+            for (pos in polyline) {
+                bounds.include(pos)
+            }
+        }
+
+        map?.moveCamera(
+            CameraUpdateFactory.newLatLngBounds(
+                bounds.build(),
+                view!!.width,
+                view!!.height,
+                (view!!.height * 0.05f).toInt()
+            )
+        )
+    }
+
+    val weight=60F
+    private fun endAndSaveRun(){
+        map.snapshot { bmp->
+
+            var distenceInMeters=0
+            for(polyline in pathPoints){
+                distenceInMeters+=TrackingUtility.calculatePolylineLength(polyline).toInt()
+            }
+            val avgSpeed= round((distenceInMeters/1000f) /(currentTimeINMiils/1000/60/60)*10)/10f
+            val dateTimestamp=Calendar.getInstance().timeInMillis
+            val caloriesBurned = ((distenceInMeters/1000f)*weight).toInt()
+
+            //save here
+
+            showCancelDialogue()
+        }
     }
 }
