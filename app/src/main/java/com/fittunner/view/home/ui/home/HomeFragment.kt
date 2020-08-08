@@ -12,27 +12,35 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.fittunner.R
+import com.fittunner.util.FitTunnerLogger
+import com.google.android.gms.ads.*
 import dagger.hilt.android.AndroidEntryPoint
+import java.lang.Exception
+import java.util.*
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val homeViewModel: HomeViewModel by viewModels()
+    var adapter:RunAdapter = RunAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val rvList: RecyclerView = view.findViewById(R.id.rvList)
-        rvList.adapter=RunAdapter()
-        /*homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })*/
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        homeViewModel.getAllRuns().observe(viewLifecycleOwner, Observer {
-            println("runs===>"+it.size)
+        rvList.adapter=adapter
+        homeViewModel.getAllRuns().observe(viewLifecycleOwner, Observer {records->
+            adapter.setData(records)
         })
     }
+    /*fun initGoogleAdds(){
+        try{
+            val testDeviceIds = Arrays.asList(AdRequest.DEVICE_ID_EMULATOR)
+            val configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build()
+            MobileAds.setRequestConfiguration(configuration)
+
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
+    }*/
 
 }

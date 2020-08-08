@@ -1,26 +1,58 @@
 package com.fittunner.view.home.ui.dashboard
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.fittunner.R
+import com.fittunner.util.TimeUtility
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_dashboard.*
+import java.lang.Math.round
 
+@AndroidEntryPoint
 class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
-    private lateinit var dashboardViewModel: DashboardViewModel
+    private val viewModel: DashboardViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dashboardViewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
-        val textView: TextView = view.findViewById(R.id.text_dashboard)
-        dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
+        subscribeToObservers()
+    }
+
+    private fun subscribeToObservers() {
+        viewModel.totalDistance.observe(viewLifecycleOwner, Observer {
+            // in case DB is empty it will be null
+            it?.let {
+                val km = it / 1000f
+                val totalDistance = round(km * 10) / 10f
+                val totalDistanceString = "${totalDistance}"
+                tvTotalDistence.text = totalDistanceString
+            }
+        })
+
+        viewModel.totalTimeInMillis.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                val totalTimeInMillis = TimeUtility.getTotalHoursFromMills(it)
+                tvTotalTime.text = totalTimeInMillis
+            }
+        })
+
+        viewModel.totalAvgSpeed.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                val roundedAvgSpeed = round(it * 10f) / 10f
+                val totalAvgSpeed = "${roundedAvgSpeed}"
+                tvAverageSpeed.text = totalAvgSpeed
+            }
+        })
+
+        viewModel.totalCaloriesBurned.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                val totalCaloriesBurned = "${it}"
+                tvTotalCalories.text = totalCaloriesBurned
+            }
         })
     }
+
 }

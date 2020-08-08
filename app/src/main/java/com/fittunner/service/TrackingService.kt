@@ -79,10 +79,10 @@ class TrackingService : LifecycleService() {
     }
 
     fun postIntialValues() {
-        isTracking.postValue(false)
         pathPoints.postValue(mutableListOf())
         timeRunInMills.postValue(0L)
         timeRunInSeconds.postValue(0L)
+        isTracking.postValue(false)
     }
 
     override fun onCreate() {

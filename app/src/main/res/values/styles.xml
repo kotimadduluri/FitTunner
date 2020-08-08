@@ -11,6 +11,16 @@
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
     </style>
 
+    <!-- Base application theme. -->
+    <style name="SplashScreen" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="background">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorAccent</item>
+    </style>
+
     <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
         <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
@@ -25,5 +35,69 @@
         <item name="android:textColor">@color/colorAccent</item>
     </style>
 
+    <style name="runListDataLableStyle" parent="AppTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/sp_10</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:text">00:00</item>
+    </style>
 
+    <style name="runListDataIcons" parent="AppTheme">
+        <item name="android:layout_width">@dimen/dp_15</item>
+        <item name="android:layout_height">@dimen/dp_15</item>
+        <item name="android:padding">@dimen/dp_2</item>
+    </style>
+
+    <style name="dashboardCardStyle" parent="AppTheme">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cardUseCompatPadding">true</item>
+        <item name="android:layout_margin">@dimen/dp_5</item>
+        <item name="elevation">@dimen/dp_5</item>
+        <item name="cardCornerRadius">@dimen/dp_5</item>
+    </style>
+    <style name="dashboardCardSubViewStyle" parent="AppTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/dp_10</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="dashboardIons" parent="AppTheme">
+        <item name="android:layout_width">@dimen/dp_40</item>
+        <item name="android:layout_height">@dimen/dp_40</item>
+        <item name="android:tint">@color/iconTint</item>
+    </style>
+
+    <style name="dashboardMenuHeader" parent="AppTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/poppins_extra_bold</item>
+        <item name="android:textSize">@dimen/sp_25</item>
+    </style>
+    <style name="dashboardMenuData" parent="AppTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/poppins_extra_bold</item>
+        <item name="android:textSize">@dimen/sp_40</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:text">0</item>
+    </style>
+
+    <style name="dashboardMenuSecondaryLable" parent="AppTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/textColorLight</item>
+    </style>
+
+    <style name="floatingActionButtonStyle" parent="AppTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="backgroundTint">@color/colorPrimary</item>
+        <item name="tint">@color/colorAccent</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:onClick">onClick</item>
+        <item name="android:layout_centerInParent">true</item>
+    </style>
 </resources>

@@ -7,6 +7,7 @@ import androidx.core.app.NotificationCompat
 import com.fittunner.MainActivity
 import com.fittunner.R
 import com.fittunner.data.Constants
+import com.fittunner.view.home.HomeActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import dagger.Module
 import dagger.Provides
@@ -28,8 +29,8 @@ object TrackingServiceModule {
     fun provideMainActivityPendingIntent(@ApplicationContext app:Context) = PendingIntent.getActivity(
         app,
         0,
-        Intent(app, MainActivity::class.java).also {
-            it.action = Constants.ACTION_TRACKING_FRAGMENT
+        Intent(app, HomeActivity::class.java).also {
+            it.action = Constants.ACTION_TRACKING
         }, PendingIntent.FLAG_UPDATE_CURRENT
     )
 

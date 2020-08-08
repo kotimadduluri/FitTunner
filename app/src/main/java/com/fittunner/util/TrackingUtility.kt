@@ -1,7 +1,13 @@
 package com.fittunner.util
 
+import android.Manifest
+import android.app.Activity
+import android.content.Context
 import android.location.Location
+import android.os.Build
+import com.fittunner.data.Constants.REQUEST_LOCATION_PERMISSIONS
 import com.fittunner.service.Polyline
+import pub.devrel.easypermissions.EasyPermissions
 
 object TrackingUtility {
 
@@ -26,4 +32,42 @@ object TrackingUtility {
 
         return distence
     }
+
+    fun hasLocationPermissions(context: Context)=
+        if(Build.VERSION.SDK_INT<Build.VERSION_CODES.Q){
+            EasyPermissions.hasPermissions(
+                context,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+        }else{
+            EasyPermissions.hasPermissions(
+                context,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_BACKGROUND_LOCATION
+            )
+        }
+
+    fun requestLocationPermissions(context: Activity,request:Int=REQUEST_LOCATION_PERMISSIONS) {
+        if(Build.VERSION.SDK_INT<Build.VERSION_CODES.Q){
+            EasyPermissions.requestPermissions(
+                context,
+                "You need to accept location permissions to use this application.",
+                request,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+        }else{
+            EasyPermissions.requestPermissions(
+                context,
+                "You need to accept location permissions to use this application.",
+                request,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_BACKGROUND_LOCATION
+            )
+        }
+    }
 }
+

@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.home.ui.home.HomeFragment"
-    android:padding="@dimen/dp_10"
-    android:background="@color/colorPrimary">
+    android:padding="@dimen/dp_10">
 
     <TextView
         app:layout_constraintTop_toTopOf="parent"

@@ -33,13 +33,13 @@ class MapsTrackFragment : Fragment(R.layout.fragment_maps_track), View.OnClickLi
     lateinit var map: GoogleMap
     private var currentTimeInMills = 0L
     private val viewmodel:MapsTrackViewModel by viewModels()
+    private var isTracking = false
+    private var pathPoints= mutableListOf<Polyline>()
+
     private val callback = OnMapReadyCallback { googleMap ->
         map = googleMap
         addAllPolyLines()
     }
-
-    private var isTracking = false
-    private var pathPoints= mutableListOf<Polyline>()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -182,6 +182,7 @@ class MapsTrackFragment : Fragment(R.layout.fragment_maps_track), View.OnClickLi
     //saving track
 
     private fun zoomToWholeTrack() {
+
         val bounds = LatLngBounds.Builder()
         for (polyline in pathPoints) {
             for (pos in polyline) {
@@ -189,7 +190,7 @@ class MapsTrackFragment : Fragment(R.layout.fragment_maps_track), View.OnClickLi
             }
         }
 
-        map?.moveCamera(
+        map.moveCamera(
             CameraUpdateFactory.newLatLngBounds(
                 bounds.build(),
                 requireView().width,
@@ -200,6 +201,7 @@ class MapsTrackFragment : Fragment(R.layout.fragment_maps_track), View.OnClickLi
     }
 
     val weight=60F
+
     private fun endAndSaveRun(){
         try{
             map.snapshot { bmp->
