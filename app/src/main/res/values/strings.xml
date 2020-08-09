@@ -1,19 +1,17 @@
 <resources>
     <!--adds-->
-    <string name="addsAppId">ca-app-pub-4034117723237587~9792433889</string>
-    <!--testing-->
-    <string name="bannerAddUnitId">ca-app-pub-3940256099942544/6300978111</string>
-    <!--<string name="InterstitialAddUnitId">ca-app-pub-4034117723237587/4902251046</string>-->
+    <!--<string name="addsAppId">ca-app-pub-4034117723237587~9792433889</string>-->
 
-    <!--real-->
-    <!--<string name="bannerAddUnitId">ca-app-pub-4034117723237587/9042458990</string>
-    <string name="InterstitialAddUnitId">ca-app-pub-4034117723237587/4902251046</string>-->
+    <!--<string name="app_name">FitTuner</string>-->
 
-    <string name="app_name">FitTunner</string>
+    <!--view transaction-->
+    <string name="logo">logo</string>
+    <string name="body">body</string>
+
     <string name="title_activity_home">MainActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_settings">Settings</string>
     <string name="start">Start</string>
     <string name="title_activity_map_tracking">Map</string>
     <string name="in_kcal">In kcal</string>
@@ -23,4 +21,7 @@
     <string name="avg_nspeed">Avg\nSpeed</string>
     <string name="total_ndistence">Total\nDistence</string>
     <string name="total_ncalories">Total\nCalories</string>
+    <string name="save">Save</string>
+    <string name="your_name">Your name</string>
+    <string name="your_weight">Your Weight</string>
 </resources>

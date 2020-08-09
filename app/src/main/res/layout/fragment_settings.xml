@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/dp_20"
+    tools:context=".view.home.ui.settings.SettingsFragment">
+    <TextView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/pageTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_extra_bold"
+        android:text="@string/title_settings"
+        android:textSize="@dimen/sp_30"
+        android:layout_marginStart="@dimen/dp_5"
+        android:visibility="visible"/>
+
+    <RelativeLayout
+        android:id="@+id/details_holder"
+        app:layout_constraintTop_toBottomOf="@id/pageTitle"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+        <ImageView
+            android:id="@+id/userPic"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_80"
+            android:src="@drawable/ic_user_avatar"/>
+        <TextView
+            android:id="@+id/userName"
+            android:layout_below="@+id/userPic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:textSize="@dimen/sp_20"
+            android:text="@string/app_name"
+            android:fontFamily="@font/poppins_extra_bold"
+            android:includeFontPadding="false"/>
+        <TextView
+            android:id="@+id/userWeight"
+            android:layout_below="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_20"
+            android:includeFontPadding="false"
+            android:text="0 kgs"/>
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/editProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_edit"
+        android:scaleType="centerInside"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintTop_toTopOf="@id/pageTitle"
+        app:layout_constraintBottom_toBottomOf="@id/pageTitle"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/details_holder"
+        android:visibility="gone">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/dummy"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+            <RelativeLayout
+                android:layout_below="@+id/dummy"
+                android:layout_width="match_parent"
+                android:layout_height="1000dp"
+                android:background="@drawable/ic_defult_top_rounded_bg_primary_color"
+                android:orientation="vertical"/>
+        </RelativeLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

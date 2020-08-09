@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.fittunner.view.home.ui.home.HomeFragment"
+        android:name="com.fittuner.view.home.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.fittunner.view.home.ui.dashboard.DashboardFragment"
+        android:name="com.fittuner.view.home.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.fittunner.view.home.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_settings"
+        android:name="com.fittuner.view.home.ui.settings.SettingsFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

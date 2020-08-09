@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/gMap"
-        android:name="com.fittunner.view.tracking.MapsTrackFragment"
+        android:name="com.fittuner.view.tracking.MapsTrackFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

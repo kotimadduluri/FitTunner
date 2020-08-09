@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "162288796500",
+    "firebase_url": "https://composite-cable-285911.firebaseio.com",
+    "project_id": "composite-cable-285911",
+    "storage_bucket": "composite-cable-285911.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:162288796500:android:5f3dadd9e122fd8ffafec1",
+        "android_client_info": {
+          "package_name": "com.fittuner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "162288796500-hsfnknilabdenpl2vgson5h1u1occ3fg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASFatv05vbecPH6pisLBNveM086CXBQwM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "162288796500-hsfnknilabdenpl2vgson5h1u1occ3fg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:162288796500:android:c7ab14ff9c1e602dfafec1",
+        "android_client_info": {
+          "package_name": "com.fittuner.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "162288796500-hsfnknilabdenpl2vgson5h1u1occ3fg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASFatv05vbecPH6pisLBNveM086CXBQwM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "162288796500-hsfnknilabdenpl2vgson5h1u1occ3fg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:162288796500:android:59647a291b1517acfafec1",
+        "android_client_info": {
+          "package_name": "com.fittuner.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "162288796500-hsfnknilabdenpl2vgson5h1u1occ3fg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASFatv05vbecPH6pisLBNveM086CXBQwM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "162288796500-hsfnknilabdenpl2vgson5h1u1occ3fg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

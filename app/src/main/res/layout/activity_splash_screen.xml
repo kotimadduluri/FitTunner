@@ -5,13 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.SplashScreenActivity"
-    android:background="@color/colorAccent">
+    android:background="@color/colorAccent"
+    android:transitionName="@string/body"
+    android:id="@+id/rootView">
 
     <ImageView
+        android:id="@+id/logo"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:transitionName="@string/logo"
         android:layout_width="@dimen/dp_100"
         android:layout_height="@dimen/dp_100"
         android:src="@drawable/ic_run"
