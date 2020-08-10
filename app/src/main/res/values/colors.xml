@@ -8,4 +8,6 @@
     <color name="textColor">#33333c</color>
     <color name="textColorLight">#A4A3A3</color>
     <color name="iconTint">#2979FF</color>
+
+    <color name="noDataColor">#797878</color>
 </resources>
