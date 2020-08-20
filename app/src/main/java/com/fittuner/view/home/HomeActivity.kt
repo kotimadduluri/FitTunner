@@ -57,7 +57,8 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id){
             R.id.newRun->{
-                checkAdAndStartActivity()
+              //  checkAdAndStartActivity()
+                startNewRun()
             }
         }
     }

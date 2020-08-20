@@ -20,6 +20,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -32,6 +33,7 @@ import pub.devrel.easypermissions.EasyPermissions
 import java.util.*
 import javax.inject.Inject
 import kotlin.math.round
+
 
 @AndroidEntryPoint
 class MapTrackingActivity : AppCompatActivity(),
@@ -83,6 +85,13 @@ EasyPermissions.PermissionCallbacks{
         map = googleMap
         //map.setMapType(GoogleMap.MAP_TYPE_SATELLITE)
         map.isMyLocationEnabled=true
+
+        val success = googleMap.setMapStyle(
+            MapStyleOptions.loadRawResourceStyle(
+                this, R.raw.maps_custom_style
+            )
+        )
+
        // map.myLocation
         // Add a marker in Sydney and move the camera
 //        val sydney = LatLng(-34.0, 151.0)

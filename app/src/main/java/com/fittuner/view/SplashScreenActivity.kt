@@ -32,7 +32,8 @@ class SplashScreenActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash_screen)
         CoroutineScope(Dispatchers.Main).launch {
             delay(SPLASH_DISPLAY_DURATION)
-            checkAdAndStartActivity()
+         //   checkAdAndStartActivity()
+            startTargetedActivity()
         }
 
         setupInterstitialAd();
