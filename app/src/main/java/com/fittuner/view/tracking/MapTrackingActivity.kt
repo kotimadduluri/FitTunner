@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.fittuner.R
 import com.fittuner.data.Constants
+import com.fittuner.data.Constants.POLYLINE_COLOR
+import com.fittuner.data.Constants.POLYLINE_SIZE
 import com.fittuner.repository.SessionRepository
 import com.fittuner.room.RunTrack
 import com.fittuner.service.Polyline
@@ -232,8 +234,8 @@ EasyPermissions.PermissionCallbacks{
         if (this::map.isInitialized) {
             for (polyline in pathPoints) {
                 val polylineOptions = PolylineOptions()
-                    .color(Color.RED)
-                    .width(8f)
+                    .color(Color.parseColor(POLYLINE_COLOR))
+                    .width(POLYLINE_SIZE)
                     .addAll(polyline)
 
                 map.addPolyline(polylineOptions)
@@ -247,8 +249,8 @@ EasyPermissions.PermissionCallbacks{
                 val prelastLatLng = pathPoints.last()[pathPoints.last().size - 2]
                 val lastLatLng = pathPoints.last().last()
                 val polylineOptions = PolylineOptions()
-                    .color(Color.RED)
-                    .width(8f)
+                    .color(Color.parseColor(POLYLINE_COLOR))
+                    .width(POLYLINE_SIZE)
                     .add(prelastLatLng)
                     .add(lastLatLng)
 

@@ -17,10 +17,10 @@
     <string name="in_kcal">In kcal</string>
     <string name="in_kilometre">In kilometre</string>
     <string name="in_hours">In Hours</string>
-    <string name="total_nspent_time">Total\nTime</string>
-    <string name="avg_nspeed">Avg\nSpeed</string>
-    <string name="total_ndistence">Total\nDistence</string>
-    <string name="total_ncalories">Total\nCalories</string>
+    <string name="total_nspent_time">Total Time</string>
+    <string name="avg_nspeed">Avg Speed</string>
+    <string name="total_ndistence">Total Distence</string>
+    <string name="total_ncalories">Total Calories</string>
     <string name="save">Save</string>
     <string name="your_name">Your name</string>
     <string name="your_weight">Your Weight</string>

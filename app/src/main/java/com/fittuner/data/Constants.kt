@@ -12,6 +12,9 @@ object Constants {
 
     const val ACTION_TRACKING="ACTION_TRACKING"
 
+    const val POLYLINE_COLOR="#2979FF"
+    const val POLYLINE_SIZE=20f
+
     const val LOCATION_INTERVAL=5000L
     const val FASTEST_LOCATION_INTERVAL=2000L
 
