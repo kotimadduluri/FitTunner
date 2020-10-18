@@ -246,7 +246,6 @@ class TrackingService : LifecycleService() {
     }
 
     //notifications
-
     fun startForegroundService() {
 //add empty line
         startTimer()
