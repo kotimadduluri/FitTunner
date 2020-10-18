@@ -23,10 +23,19 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         rvList.adapter=adapter
         /*homeViewModel.getAllRuns().observe(viewLifecycleOwner, Observer {records->
             adapter.setData(records)
-        })*/homeViewModel.concertList.observe(viewLifecycleOwner, Observer {records->
-            adapter.submitList(records)
-            handleNoData(records.size==0)
-        })
+        })*/
+        observerData()
+    }
+
+    private fun observerData() {
+        try{
+            homeViewModel.concertList.observe(viewLifecycleOwner, Observer {records->
+                adapter.submitList(records)
+                handleNoData(records.size==0)
+            })
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
     }
 
     fun handleNoData(noData: Boolean) {
@@ -38,15 +47,4 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             rvList.visibility=View.VISIBLE
         }
     }
-    /*fun initGoogleAdds(){
-        try{
-            val testDeviceIds = Arrays.asList(AdRequest.DEVICE_ID_EMULATOR)
-            val configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build()
-            MobileAds.setRequestConfiguration(configuration)
-
-        }catch (e:Exception){
-            e.printStackTrace()
-        }
-    }*/
-
 }

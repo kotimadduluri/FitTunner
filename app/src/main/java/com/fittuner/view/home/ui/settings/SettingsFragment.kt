@@ -91,6 +91,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
                     addContainer.removeAllViews()
                 }
                 addContainer.addView(GoogleAddsUtil.getBannerAdd(requireContext()))
+                println("add added===>")
             }
         }catch (e:Exception){
             e.printStackTrace()

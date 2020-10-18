@@ -64,22 +64,28 @@ EasyPermissions.PermissionCallbacks{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map_tracking)
-        mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
 
+        initMap()
         fab_Pause = findViewById(R.id.pause)
         fab_Start = findViewById(R.id.start)
         fab_Cancel = findViewById(R.id.cancel)
         fab_Save = findViewById(R.id.save)
-        checkPermissions()
         subScribeObserver()
     }
 
-    private fun checkPermissions(){
+    fun initMap(){
+        if(checkPermissions()){
+            mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+            mapFragment.getMapAsync(this)
+        }
+    }
+
+    private fun checkPermissions(): Boolean {
         if(TrackingUtility.hasLocationPermissions(this)){
-            return
+            return true
         }
         TrackingUtility.requestLocationPermissions(this)
+        return false
     }
 
     @SuppressLint("MissingPermission")
@@ -363,7 +369,7 @@ EasyPermissions.PermissionCallbacks{
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
-
+        initMap()
     }
 
     override fun onRequestPermissionsResult(
